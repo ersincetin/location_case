@@ -7,14 +7,14 @@
                     <div class="mb-7">
                         <label class="form-label">Latitude</label>
                         <input type="text" class="form-control" id="latitude" name="latitude" placeholder=""
-                               required/>
+                               required value="41.0082"/>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                     <div class="mb-7">
                         <label class="form-label">Longitude</label>
                         <input type="text" class="form-control" id="longitude" name="longitude" placeholder=""
-                               required/>
+                               required value="28.978"/>
                     </div>
                 </div>
             </div>

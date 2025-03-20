@@ -9,6 +9,9 @@
     @include('route.Body')
 @endsection
 @section('JavaScript')
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXcawvXc9FJ3FQkIUcUiduiVdmw1PHf8&loading=async&libraries=marker&callback=initMap" async="async" defer="defer" type="text/javascript"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSXcawvXc9FJ3FQkIUcUiduiVdmw1PHf8&loading=async&libraries=marker,geometry&callback=initMap"
+        async="async" defer="defer" type="text/javascript"></script>
+    @include('route.Script')
     @include('route.MapScript')
 @endsection
