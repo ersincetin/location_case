@@ -53,12 +53,45 @@
     }
 
     function calculateRoute(latitude = null, longitude = null) {
+        const apiKey = 'AIzaSyBSXcawvXc9FJ3FQkIUcUiduiVdmw1PHf8';
+        var mapProp = {
+            center: new google.maps.LatLng(39.00, 35.00),
+            zoom: 5,
+            mapTypeId: 'hybrid',
+            mapId: '90aa7b32be93ed8c'
+        };
+        let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
         const inputLocation = new google.maps.LatLng(latitude, longitude);
-        const sortedMarkers = markers.map(marker => {
-            const distance = google.maps.geometry.spherical.computeDistanceBetween(inputLocation, marker.position);
-            return {...marker, distance};
-        }).sort((a, b) => {
-            a.distance - b.distance
+        const sortedMarkers = markers
+            .map(marker => {
+                const distance = google.maps.geometry.spherical.computeDistanceBetween(inputLocation, marker.position);
+                marker['distance'] = distance;
+                return marker;
+            })
+            .sort((a, b) => {
+                a.distance - b.distance
+            });
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer({map: map});
+
+        const origin = {lat: 41.0082, lng: 28.9784};
+        const destination = {lat: 36.8969, lng: 30.7133};
+
+        const waypoints = sortedMarkers.map(marker => ({location: marker.position, stopover: true}));
+
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            waypoints: waypoints,
+            travelMode: google.maps.TravelMode.DRIVING,
+            optimizeWaypoints: true
+        }, (response, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsRenderer.setDirections(response);
+            } else {
+                console.error("Rota oluşturulamadı: " + status);
+            }
         });
     }
 
